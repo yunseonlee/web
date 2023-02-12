@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>geolocation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <style>
+      #map{
+        height:600px;
+        width:600px;
+      }
+
+      button{
+        font-size: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <button id="mcmaster">Mcmaster</button>
+    <button id="remove">remove</button>
+
+
+   <script>
+    function initMap()
+    {
+      map = new google.maps.Map(document.getElementById("map"),
+                                {zoom:15,
+                                center: {lat:43.2617, lng:-79.9228}
+                              });
+        const mcmaster={lat:43.2617, lng:-79.9928};
+        let marker = new google.maps.Marker({
+          position: {lat:43.2827, lng:-79.9228},
+          map: map,
+          title: "Mcmaster"
+ 
+        });
+    }
+
+     mcmaster = document.getElementById("mcmaster");
+    mcmaster.addEventListener("click", function() {
+
+       mcmaster_marker = new google.maps.Marker({
+        position: {lat:43.2617, lng:-79.9228},
+        map: map
+      });
+    });
+
+    let remove = document.getElementById("remove");
+    remove.addEventListener("click", function(){
+      mcmaster_marker.setMap(null);
+    });
+
+    
+   </script>
+
+
+
+ <script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGduh2sQjQJQ3AOAmCheR21vFOxxeZiRY&callback=initMap&v=weekly"
+defer
+></script>
+</body>
+</html>
