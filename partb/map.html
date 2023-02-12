@@ -38,9 +38,11 @@ function initMap() {
 
   const marker = new google.maps.Marker({
     position: pos,
-    map: map,
-    title: "Current location",
-  });
+    map,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 10,
+    }});
 
   const infoWindow = new google.maps.InfoWindow({
       content: "Current location"
@@ -50,8 +52,7 @@ marker.addListener("click", function(){
 infoWindow.open({
   anchor: marker,
   shouldFocus: false
-});
-});
+})});
 });
   }});
    
