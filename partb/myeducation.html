@@ -1,0 +1,71 @@
+<!DOCTYPE hmtl>
+<html>
+<head>
+    <script src="education.js"></script>
+
+  <title>Google Map</title>
+  <style>
+    #map {
+      height: 600px;
+      width: 1000px;
+    }
+    button {
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <br />
+
+  <button id="">McMaster</button>
+  <button id="remove">Remove</button>
+
+  <script>
+
+    markers = [];
+    function initMap()
+    {
+      map = new google.maps.Map(document.getElementById("map"), 
+                                {
+                                center: { lat: 43.2554, lng: -79.8733},
+                                zoom: 13,
+                                });
+    //infowindow is object
+    infowindow = new google.maps.InfoWindow();
+    marker_clicked = function()
+    {
+        infowindow.close();
+        infowindow.setContent(this.NAME);
+        infowindow.open(map,this);
+    }
+
+    for (let i =0; i<education.features.length;i++) {
+        new_marker = new google.maps.Marker({
+            position:{lat: parseFloat(education.features[i].properties.LATITUDE),
+                      lng: parseFloat(education.features[i].properties.LONGITUDE)}
+            ,map: map
+            ,title: education.features[i].properties.NAME
+        });
+
+        new_marker.NAME = education.features[i].properties.NAME;
+        new_marker.addListener("click", marker_clicked);
+         markers.push(new_marker);
+    }
+    
+
+
+
+
+    }
+  </script>
+
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGduh2sQjQJQ3AOAmCheR21vFOxxeZiRY&callback=initMap&v=weekly"
+defer
+></script>
+
+</body>
+</html>

@@ -10,23 +10,25 @@
   </head>
   <body>
     <h2>Map</h2>
-    <button id="locationButton" >Geolocate</button>
-    <button class="btn btn-primary" type="button">Hospitals</button>
-    <button class="btn btn-primary" type="button">Fire Stations</button>
-    <button class="btn btn-primary" type="button">Schools</button>
-    <button class="btn btn-primary" type="button">Waterfalls</button>
-    <button class="btn btn-primary" type="reset">Clear</button>
+    <button id="geolocate" >Geolocate</button>
+    <button id="hospitals">Hospitals</button>
+    <button id="firestations">Fire Stations</button>
+    <button id="schools">Schools</button>
+    <button id="waterfalls">Waterfalls</button>
+    <button id="clear">Clear</button>
        <div id="map"></div>
 
  <script>
-  let map, infoWindow;
- 
-
-function initMap() {
   
-  locationButton.addEventListener("click", () => {
- 
+function initMap() {
+         
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: {lat:43.25282, lng: -79.831006},
+    zoom: 9,
+  });
 
+  geolocate.addEventListener("click", function() {
+ 
      if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -35,20 +37,15 @@ function initMap() {
             lng: position.coords.longitude,
           };
            
-   map = new google.maps.Map(document.getElementById("map"), {
-    center: pos,
-    zoom: 12,
-  });
 
+let icon_png  ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
   const marker = new google.maps.Marker({
     position: pos,
     map,
-    icon: {
-      path: google.maps.SymbolPath.CIRCLE,
-      scale: 10,
-    }});
+    icon: icon_png,
+  });
 
-  const infoWindow = new google.maps.InfoWindow({
+  let infoWindow = new google.maps.InfoWindow({
       content: "Current location"
     });
  
@@ -57,6 +54,7 @@ infoWindow.open({
   anchor: marker,
   shouldFocus: false
 })});
+
 });
   }});
    
@@ -71,5 +69,5 @@ infoWindow.open({
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGduh2sQjQJQ3AOAmCheR21vFOxxeZiRY&callback=initMap&v=weekly"
       defer
     ></script>
-  </body>
+  </body> 
 </html>
