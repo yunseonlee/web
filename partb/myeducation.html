@@ -1,71 +1,123 @@
-<!DOCTYPE hmtl>
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="map.css" />
     <script src="education.js"></script>
 
-  <title>Google Map</title>
-  <style>
-    #map {
-      height: 600px;
-      width: 1000px;
-    }
-    button {
-      font-size: 32px;
-    }
-  </style>
-</head>
-<body>
+ 
+    <title>Geolocation</title>
+  </head>
+  <body>
+    <h2>Map</h2>
+    <button id="geolocate" >Geolocate</button>
+    <button id="hospitals">Hospitals</button>
+    <button id="firestations">Fire Stations</button>
+    <button id="schools">Schools</button>
+    <button id="waterfalls">Waterfalls</button>
+    <button id="clear">Clear</button>
+       <div id="map"></div>
 
-  <div id="map"></div>
+ <script>
+      markers = [];
 
-  <br />
+function initMap() {
+         
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: {lat:43.25282, lng: -79.831006},
+    zoom: 9,
+  });
 
-  <button id="">McMaster</button>
-  <button id="remove">Remove</button>
+  geolocate.addEventListener("click", function() {
+ 
+     if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+           
 
-  <script>
+let icon_png  ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
+  const marker = new google.maps.Marker({
+    position: pos,
+    map,
+    icon: icon_png,
+  });
 
-    markers = [];
-    function initMap()
-    {
-      map = new google.maps.Map(document.getElementById("map"), 
-                                {
-                                center: { lat: 43.2554, lng: -79.8733},
-                                zoom: 13,
-                                });
-    //infowindow is object
-    infowindow = new google.maps.InfoWindow();
-    marker_clicked = function()
+  let infoWindow = new google.maps.InfoWindow({
+     content: "Current location"
+    });
+ 
+marker.addListener("click", function(){
+infoWindow.open({
+  anchor: marker,
+  shouldFocus: false,
+ })});
+
+});
+  }});
+   
+ 
+ ////////////////////////////////////////////////////
+ marker_clicked = function()
     {
         infowindow.close();
         infowindow.setContent(this.NAME);
         infowindow.open(map,this);
     }
 
-    for (let i =0; i<education.features.length;i++) {
+    for (let i =0; i<education.features.length;i++) 
+    {
+        let icon_png;
+        if(education.features[i].properties.CATEGORY == "Secondary School")
+        {
+            icon_png ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
+        }else{
+            icon_png = "http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png";
+        }
+
         new_marker = new google.maps.Marker({
             position:{lat: parseFloat(education.features[i].properties.LATITUDE),
                       lng: parseFloat(education.features[i].properties.LONGITUDE)}
             ,map: map
+            ,icon: icon_png
             ,title: education.features[i].properties.NAME
         });
 
         new_marker.NAME = education.features[i].properties.NAME;
+        new_marker.CATEGORY = education.features[i].properties.CATEGORY;
         new_marker.addListener("click", marker_clicked);
-         markers.push(new_marker);
+        markers.push(new_marker);      
     }
     
+    let elementary = document.getElementById("schools");
+    elementary.addEventListener("click", function() {
+        for (let i=0;i<markers.length;i++)
+        {
+            if(markers[i].CATEGORY =="Elementary School") markers[i].setMap(map);
+            else markers[i].setMap(null);
+        }
+    });
 
+    let all = document.getElementById("all");
+    all.addEventListener("click", function() {
+        for(let i=0;i<markers.length;i++)
+        {
+            markers[i].setMap(map);
+        }
+    })
+}
 
+   
+ </script>
 
-
-    }
-  </script>
-
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGduh2sQjQJQ3AOAmCheR21vFOxxeZiRY&callback=initMap&v=weekly"
-defer
-></script>
-
-</body>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGduh2sQjQJQ3AOAmCheR21vFOxxeZiRY&callback=initMap&v=weekly"
+      defer
+    ></script>
+  </body> 
 </html>

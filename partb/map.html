@@ -46,14 +46,14 @@ let icon_png  ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
   });
 
   let infoWindow = new google.maps.InfoWindow({
-      content: "Current location"
+     content: "Current location"
     });
  
 marker.addListener("click", function(){
 infoWindow.open({
   anchor: marker,
-  shouldFocus: false
-})});
+  shouldFocus: false,
+ })});
 
 });
   }});
