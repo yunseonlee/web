@@ -19,7 +19,7 @@
        <div id="map"></div>
 
  <script>
-      var markers = [];
+      var schoolmarkers = [];
       var hospitalmarkers = [];
       var firestationmarkers = [];
       var waterfallmarkers = [];
@@ -78,7 +78,7 @@ infoWindow.open({
         let icon_png ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
         
 
-        new_marker = new google.maps.Marker({
+        school_marker = new google.maps.Marker({
             position:{lat: parseFloat(education.features[i].properties.LATITUDE),
                       lng: parseFloat(education.features[i].properties.LONGITUDE)}
             ,map: map
@@ -86,9 +86,9 @@ infoWindow.open({
             ,title: education.features[i].properties.NAME
         });
 
-        new_marker.NAME = education.features[i].properties.NAME;
-        new_marker.addListener("click", marker_clicked);
-        markers.push(new_marker);      
+        school_marker.NAME = education.features[i].properties.NAME;
+        school_marker.addListener("click", marker_clicked);
+        schoolmarkers.push(school_marker);      
     }
     
     for (let i =0; i<hospital.features.length;i++) 
@@ -150,9 +150,11 @@ infoWindow.open({
 
     let schools = document.getElementById("schools");
     schools.addEventListener("click", function() {
-        for(let i=0;i<markers.length;i++)
+      clearall();
+
+        for(let i=0;i<schoolmarkers.length;i++)
         {
-            markers[i].setMap(map);
+            schoolmarkers[i].setMap(map);
 
 
         }
@@ -160,6 +162,8 @@ infoWindow.open({
 
     let hospitals = document.getElementById("hospitals");
     hospitals.addEventListener("click", function() {
+      clearall();
+
         for(let i=0;i<hospitalmarkers.length;i++)
         {
             hospitalmarkers[i].setMap(map);
@@ -169,6 +173,7 @@ infoWindow.open({
 
     let firestations = document.getElementById("firestations");
     firestations.addEventListener("click", function() {
+      clearall();
         for(let i=0;i<firestationmarkers.length;i++)
         {
             firestationmarkers[i].setMap(map);
@@ -178,6 +183,7 @@ infoWindow.open({
 
     let waterfalls = document.getElementById("waterfalls");
     waterfalls.addEventListener("click", function() {
+      clearall();
         for(let i=0;i<waterfallmarkers.length;i++)
         {
             waterfallmarkers[i].setMap(map);
@@ -186,11 +192,13 @@ infoWindow.open({
     })
 
     let clear = document.getElementById("clear");
-    clear.addEventListener("click", function() {
+    clear.addEventListener("click", clearall);
+    
+    function clearall() {
  
-        for(let i=0;i<markers.length;i++)
+        for(let i=0;i<schoolmarkers.length;i++)
         {
-            markers[i].setMap(null);
+            schoolmarkers[i].setMap(null);
 
         }
 
@@ -215,7 +223,7 @@ infoWindow.open({
        
        }
 
-    })
+    }
 
   
 }
