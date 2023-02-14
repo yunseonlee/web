@@ -5,17 +5,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="map.css" />
- 
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+    crossorigin="anonymous"
+  />
     <title>Geolocation</title>
+    <img id="logo_img" src="logo.png" alt="..." height="50">
+
   </head>
   <body>
-    <h2>Map</h2>
-    <button id="geolocate" >Geolocate</button>
-    <button id="hospitals">Hospitals</button>
-    <button id="firestations">Fire Stations</button>
-    <button id="schools">Schools</button>
-    <button id="waterfalls">Waterfalls</button>
-    <button id="clear">Clear</button>
+
+    <!--navbar-->
+    <div class="container">
+      <a class="navbar-brand" href="home.html">
+       </a>
+       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+       </button>
+      </div>
+ <!--nav bar-->
+     <nav class="navbar navbar-expand-lg bg-body-tertiary">
+       <div class="container-fluid">
+         <a class="navbar-brand" href="home.html"></a>
+         <button
+           class="navbar-toggler"
+           type="button"
+           data-bs-toggle="collapse"
+           data-bs-target="#navbarSupportedContent"
+           aria-controls="navbarSupportedContent"
+           aria-expanded="false"
+           aria-label="Toggle navigation"
+         >
+           <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+             <li class="nav-item">
+               <a class="nav-link" href="home.html">Home</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="search.html">Search</a>
+             </li>
+             <li class="nav-item-active">
+               <a class="nav-link" aria-current="page" href="map.html">Map</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="calculator.html">Calculator</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="realtor.html">Realtor</a>
+             </li>
+             <li class="nav-item">
+               <a class="nav-link" href="login.html">Login</a>
+             </li>
+           </ul>
+           <form class="d-flex" role="search">
+             <input
+               class="form-control me-2"
+               type="search"
+               placeholder="Search"
+               aria-label="Search"
+             />
+             <button class="btn btn-outline-success" type="submit">
+               Search
+             </button>
+           
+               </div>
+           </form>
+         </div>
+       </div>
+     </nav>
+
+     <!--navbar end-->
+    <h2>City of Hamilton Facilities Map</h2>
+    <div id="map_buttons">
+    <button class= "map_button" id="geolocate" >Geolocate</button>
+    <button class= "map_button" id="hospitals">Hospitals</button>
+    <button class= "map_button" id="firestations">Fire Stations</button>
+    <button class= "map_button" id="schools">Schools</button>
+    <button class= "map_button" id="waterfalls">Waterfalls</button>
+    <button class= "map_button" id="clear">Clear</button>
+  </div>
        <div id="map"></div>
 
  <script>
