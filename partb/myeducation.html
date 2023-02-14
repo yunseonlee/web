@@ -66,6 +66,8 @@ infoWindow.open({
    
  
  ////////////////////////////////////////////////////
+ infowindow = new google.maps.InfoWindow();
+
  marker_clicked = function()
     {
         infowindow.close();
@@ -150,7 +152,7 @@ infoWindow.open({
 
     let schools = document.getElementById("schools");
     schools.addEventListener("click", function() {
-      clearall();
+            clearall();
 
         for(let i=0;i<schoolmarkers.length;i++)
         {
