@@ -19,12 +19,18 @@
        <div id="map"></div>
 
  <script>
-  
+      var schoolmarkers = [];
+      var hospitalmarkers = [];
+      var firestationmarkers = [];
+      var waterfallmarkers = [];
+
+
+
 function initMap() {
          
   map = new google.maps.Map(document.getElementById("map"), {
     center: {lat:43.25282, lng: -79.831006},
-    zoom: 9,
+    zoom: 11,
   });
 
   geolocate.addEventListener("click", function() {
@@ -38,8 +44,8 @@ function initMap() {
           };
            
 
-let icon_png  ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
-  const marker = new google.maps.Marker({
+let icon_png  ="http://maps.google.com/mapfiles/kml/paddle/wht-stars.png";
+  let marker = new google.maps.Marker({
     position: pos,
     map,
     icon: icon_png,
@@ -59,11 +65,179 @@ infoWindow.open({
   }});
    
  
+ ////////////////////////////////////////////////////
+ infowindow = new google.maps.InfoWindow();
+
+ marker_clicked = function()
+    {
+        infowindow.close();
+        infowindow.setContent(this.NAME);
+        infowindow.open(map,this);
+    }
+
+    for (let i =0; i<education.features.length;i++) 
+    {
+        let icon_png ="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
+        
+
+        school_marker = new google.maps.Marker({
+            position:{lat: parseFloat(education.features[i].properties.LATITUDE),
+                      lng: parseFloat(education.features[i].properties.LONGITUDE)}
+            ,map: map
+            ,icon: icon_png
+            ,title: education.features[i].properties.NAME
+        });
+
+        school_marker.NAME = education.features[i].properties.NAME;
+        school_marker.addListener("click", marker_clicked);
+        schoolmarkers.push(school_marker);      
+    }
+    
+    for (let i =0; i<hospital.features.length;i++) 
+    {
+      let icon_png_2= "http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png";
+        
+
+        hospital_marker = new google.maps.Marker({
+            position:{lat: parseFloat(hospital.features[i].properties.LATITUDE),
+                      lng: parseFloat(hospital.features[i].properties.LONGITUDE)}
+            ,map: map
+            ,icon: icon_png_2
+            ,title: hospital.features[i].properties.NAME
+        });
+
+        hospital_marker.NAME = hospital.features[i].properties.NAME;
+        hospital_marker.addListener("click", marker_clicked);
+        hospitalmarkers.push(hospital_marker);      
+    }
+    
  
+    for (let i =0; i<firestation.features.length;i++) 
+    {
+        let icon_png_3 ="http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
+        
+
+        firestation_marker = new google.maps.Marker({
+            position:{lat: parseFloat(firestation.features[i].properties.LATITUDE),
+                      lng: parseFloat(firestation.features[i].properties.LONGITUDE)}
+            ,map: map
+            ,icon: icon_png_3
+            ,title: firestation.features[i].properties.NAME
+        });
+
+        firestation_marker.NAME = firestation.features[i].properties.NAME;
+        firestation_marker.addListener("click", marker_clicked);
+        firestationmarkers.push(firestation_marker);      
+    }
+    
+    for (let i =0; i<waterfall.features.length;i++) 
+    {
+        let icon_png_4 ="http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png";
+        
+
+        waterfall_marker = new google.maps.Marker({
+            position:{lat: parseFloat(waterfall.features[i].properties.LATITUDE),
+                      lng: parseFloat(waterfall.features[i].properties.LONGITUDE)}
+            ,map: map
+            ,icon: icon_png_4
+            ,title: waterfall.features[i].properties.NAME
+        });
+
+        waterfall_marker.NAME = waterfall.features[i].properties.NAME;
+        waterfall_marker.addListener("click", marker_clicked);
+        waterfallmarkers.push(waterfall_marker);      
+    }
+    
+
+
+    let schools = document.getElementById("schools");
+    schools.addEventListener("click", function() {
+            clearall();
+
+        for(let i=0;i<schoolmarkers.length;i++)
+        {
+            schoolmarkers[i].setMap(map);
+
+
+        }
+    })
+
+    let hospitals = document.getElementById("hospitals");
+    hospitals.addEventListener("click", function() {
+      clearall();
+
+        for(let i=0;i<hospitalmarkers.length;i++)
+        {
+            hospitalmarkers[i].setMap(map);
+
+        }
+    })
+
+    let firestations = document.getElementById("firestations");
+    firestations.addEventListener("click", function() {
+      clearall();
+        for(let i=0;i<firestationmarkers.length;i++)
+        {
+            firestationmarkers[i].setMap(map);
+
+        }
+    })
+
+    let waterfalls = document.getElementById("waterfalls");
+    waterfalls.addEventListener("click", function() {
+      clearall();
+        for(let i=0;i<waterfallmarkers.length;i++)
+        {
+            waterfallmarkers[i].setMap(map);
+
+        }
+    })
+
+    let clear = document.getElementById("clear");
+    clear.addEventListener("click", clearall);
+    
+    function clearall() {
+ 
+        for(let i=0;i<schoolmarkers.length;i++)
+        {
+            schoolmarkers[i].setMap(null);
+
+        }
+
+        for(let i=0;i<hospitalmarkers.length;i++)
+        {
+            hospitalmarkers[i].setMap(null);
+
+       
+       }
+
+       for(let i=0;i<firestationmarkers.length;i++)
+        {
+            firestationmarkers[i].setMap(null);
+
+       
+       }
+       
+       for(let i=0;i<waterfallmarkers.length;i++)
+        {
+            waterfallmarkers[i].setMap(null);
+
+       
+       }
+
+    }
+
+  
 }
 
    
  </script>
+  <script src="education.js"></script>
+  <script src="hospital.js"></script>
+  <script src="firestation.js"></script>
+  <script src="waterfalls.js"></script>
+
+
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGduh2sQjQJQ3AOAmCheR21vFOxxeZiRY&callback=initMap&v=weekly"
