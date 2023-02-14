@@ -23,7 +23,7 @@
       var hospitalmarkers = [];
       var firestationmarkers = [];
       var waterfallmarkers = [];
-
+var marker;
 
 
 function initMap() {
@@ -90,7 +90,9 @@ infoWindow.open({
 
         school_marker.NAME = education.features[i].properties.NAME;
         school_marker.addListener("click", marker_clicked);
-        schoolmarkers.push(school_marker);      
+        schoolmarkers.push(school_marker);  
+        clearall();
+    
     }
     
     for (let i =0; i<hospital.features.length;i++) 
@@ -109,6 +111,8 @@ infoWindow.open({
         hospital_marker.NAME = hospital.features[i].properties.NAME;
         hospital_marker.addListener("click", marker_clicked);
         hospitalmarkers.push(hospital_marker);      
+        clearall();
+
     }
     
  
@@ -128,6 +132,8 @@ infoWindow.open({
         firestation_marker.NAME = firestation.features[i].properties.NAME;
         firestation_marker.addListener("click", marker_clicked);
         firestationmarkers.push(firestation_marker);      
+        clearall();
+
     }
     
     for (let i =0; i<waterfall.features.length;i++) 
@@ -145,7 +151,9 @@ infoWindow.open({
 
         waterfall_marker.NAME = waterfall.features[i].properties.NAME;
         waterfall_marker.addListener("click", marker_clicked);
-        waterfallmarkers.push(waterfall_marker);      
+        waterfallmarkers.push(waterfall_marker);   
+        clearall();
+   
     }
     
 
@@ -201,31 +209,23 @@ infoWindow.open({
         for(let i=0;i<schoolmarkers.length;i++)
         {
             schoolmarkers[i].setMap(null);
-
         }
 
         for(let i=0;i<hospitalmarkers.length;i++)
         {
             hospitalmarkers[i].setMap(null);
-
-       
        }
 
        for(let i=0;i<firestationmarkers.length;i++)
         {
             firestationmarkers[i].setMap(null);
-
-       
        }
        
        for(let i=0;i<waterfallmarkers.length;i++)
         {
             waterfallmarkers[i].setMap(null);
-
-       
        }
-
-    }
+     }
 
   
 }
