@@ -5,22 +5,21 @@ function handleSubmit(event)
 { 
  
      var calculator=document.querySelectorAll('.needs-validation');
-    let mortgageAmount = document.getElementById("mortgageAmount");
-    let interestRate = document.getElementById("interestRate");
-    let loanLength = document.getElementById("loanLength");
-    let postalCode = document.getElementById("postalCode").value;
-    console.log(postalCode);
+    let new_mortgageAmount = parseInt(document.getElementById("mortgageAmount").value);
+    let new_interestRate = parseInt(document.getElementById("interestRate").value);
+    let new_loanLength = parseInt(document.getElementById("loanLength").value);
+    const new_postalCode = document.getElementById("postalCode").value;
+ 
+    // let new_mortgageAmount = parseInt(mortgageAmount.value);
+    // let new_interestRate = parseInt(interestRate.value);
+    // let new_loanLength = parseInt(loanLength.value);
 
-    let errors=[];
- 
- 
 
-    var new_mortgageAmount = parseInt(mortgageAmount.value);
-    var new_interestRate = parseInt(interestRate.value);
-    var new_loanLength = parseInt(loanLength.value);
-console.log(postalCode.value);
- 
-  
+
+
+console.log(postalCode.value); 
+let errors=[];
+
     if (Number.isInteger(new_mortgageAmount) && new_mortgageAmount>0)
     {
         console.log("mortgage amount is positive");
@@ -56,16 +55,17 @@ console.log(postalCode.value);
         loanLength.classList.remove("is-valid");
     }
 
-    console.log(postalCode.length);
-    if(postalCode.length==7 && postalCode[0]=="L")
+    console.log(new_postalCode.length);
+
+    if(new_postalCode.length==7 && new_postalCode[0]=="L")
     {
         console.log("L and 7 character working");
-        // postalCode.classList.add("is-valid");
-        // postalCode.classList.remove("is-invalid");
+        postalCode.classList.add("is-valid");
+        postalCode.classList.remove("is-invalid");
     }else{
         errors.push("Must be located in Hamilton.");
-    // postalCode.classList.add("is-valid");
-//         postalCode.classList.remove("is-valid");
+        postalCode.classList.add("is-invalid");
+        postalCode.classList.remove("is-valid");
     }
 
     if(errors.length>0)
@@ -79,19 +79,26 @@ console.log(postalCode.value);
             error_list += "</ul>";
 
             output.innerHTML = error_list;
+            if(mortgageAmount && interest){
+                output.innerHTML = "";            }
            
  
     }else{
-    alert("No error found!");
+    
+        output.innerHTML = "";
+
+        alert("All data valid")
+        
+      
     }
-    console.log(new_mortgageAmount);
-    console.log(new_interestRate);
-    console.log(new_loanLength);
-    console.log(postalCode);
+    //  console.log(new_mortgageAmount);
+    // console.log(new_interestRate);
+    // console.log(new_loanLength);
+    // console.log(postalCode);
  
 
 
- 
+  
     event.preventDefault();
 
 }
@@ -99,22 +106,26 @@ function handleReset(event){
     console.log("reset");
      output.innerHTML = "";
   
-    new_mortgageAmount=0;
-    new_interestRate=0;
-    new_loanLength=0;
+    mortgageAmount=0;
+    interestRate=0;
+    loanLength=0;
      error_list="";
     errors=[];
     console.log(error_list);
-    console.log(new_mortgageAmount);
-    console.log(new_interestRate);
-    console.log(new_loanLength);
+    console.log(mortgageAmount);
+    console.log(interestRate);
+    console.log(loanLength);
     console.log(postalCode);
+    }
 
-
+    
+    function result(){
+    calculatedResult= mortgageAmount+new_interestRate;
+    console.log("result inside") ;
+    output.innerHTML = calculatedResult;
 
     }
 calculator.addEventListener("click",handleSubmit);
 reset.addEventListener("click",handleReset);
 
-
- 
+console.log(result); 
